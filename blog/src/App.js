@@ -136,14 +136,27 @@ function App() {
 {/* 컴포넌트 만들기
     숙제 6: 글 수정 버튼을 누르면 첫 글 제목이 '여자코트 추천'으로 변경되야 함
     보너스 숙제: Modal 안의 글 제목과 글 목록의 글 제목 일치시키기 */}
-function Modal(props){
-  let [copy_글제목, onModal] = useState(props.글제목.map(function(a, i){
-    return(
-      <div className="modal" style={{background : props.color}} key={i}>
-        <h4> {a[i]} </h4>
-      </div>
-    )
-  })) 
-}
+    function Modal(props){
+      return (
+        <div>
+          {
+            props.글제목.map(function(a){
+              return(
+                <div  className = "modal" style={{background : props.color}} key={a}>
+                  <h4> {a} </h4>
+                  <p> 날짜 </p>
+                  <p> 상세 내용 </p>
+                  <button onClick={ ()=> {
+                    let update_copy = [...props.글제목]
+                    update_copy[0] = '여자코트 추천'
+                    props.글제목변경(update_copy)
+                  }}> 글수정 </button>
+                </div>
+              )
+            })
+          }
+        </div>
+      )
+    }
 
 export default App;

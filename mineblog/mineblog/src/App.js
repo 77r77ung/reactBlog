@@ -1,12 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  let a = 'nav'
   return (
     <div className="App">
-      <header className="nav">
+      <div className="nav">
       <h4 style={ {color:'white', fontsize:'16px'} }> nav입니다. </h4>
-      </header>
+      </div>
+
+      <div>
+        <p> 데이터 바인딩 사용하면! {a} </p>
+      </div>
     </div>
   );
 }

@@ -9,7 +9,7 @@ import { useState } from 'react';
 function App() {
 
   let post = '강남 우동 맛집';
-  {/* 아래는 html에서 변수 문법을 사용할 때 원래 코드 
+  {/* 아래는 html에서 변수 문법을 사용할 때 원래 코드
   document.querySelector('h4').innerHTML = post;
   */}
   let [a, b] = useState('남자 코트 추천');
@@ -134,7 +134,7 @@ function App() {
 }
 
 {/* 컴포넌트 만들기
-    숙제 6: 글 수정 버튼을 누르면 첫 글 제목이 '여자코트 추천'으로 변경되야 함
+    숙제: 글 수정 버튼을 누르면 첫 글 제목이 '여자코트 추천'으로 변경되야 함
     보너스 숙제: Modal 안의 글 제목과 글 목록의 글 제목 일치시키기 */}
     function Modal(props){
       return (

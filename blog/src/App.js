@@ -17,6 +17,7 @@ function App() {
 
   {/* 숙제 1: state로 글 제목 설정하고, 블로그 글 만들어오기 */}
   let [글제목, 글제목변경] = useState(['남자코트 추천', '강남 우동맛집', '파이썬 독학'])
+  let [title, setTitle] = useState(0)
 
   {/* 따봉: 실제 State | 따봉변경: State 변경 함수(state 변경 함수를 사용해야 html 재렌더링도 잘 됨) */}
   let [따봉, 따봉변경] = useState(글제목.map(function(a){
@@ -105,7 +106,7 @@ function App() {
         글제목.map(function(a, i){
           return (
             <div className="list" key = {i} >
-              <h4 onClick = { ()=> {setModal(!modal)} } > {글제목[i]} </h4>
+              <h4 onClick = { ()=> {setModal(!modal); setTitle(i)} } > {글제목[i]} </h4>
               <span onClick = {()=> { 
                 let copy = [...따봉];
                 copy[i] = 따봉[i]+1;
@@ -126,7 +127,7 @@ function App() {
         // }) 
       }
       {
-        modal == true ? <Modal 글제목 = {글제목} 글제목변경 = {글제목변경}/> : null
+        modal == true ? <Modal 글제목 = {글제목} 글제목변경 = {글제목변경} title={title} /> : null
       }
 
     </div>
@@ -134,29 +135,26 @@ function App() {
 }
 
 {/* 컴포넌트 만들기
-    숙제: 글 수정 버튼을 누르면 첫 글 제목이 '여자코트 추천'으로 변경되야 함
+    숙제6: 글 수정 버튼을 누르면 첫 글 제목이 '여자코트 추천'으로 변경되야 함
     보너스 숙제: Modal 안의 글 제목과 글 목록의 글 제목 일치시키기 */}
     function Modal(props){
+      {/* title State를 Modal 안에 생성해두면 state를 부모 -> 자식으로 전송할 필요가 없음
+          그러면 fucntion App에서 setTitle 함수를 사용하지 않고 fucntion Modal에서 바로 title만 변경시켜주면 됨 */}
+      let [title, setTitle] = useState(0)
       return (
-        <div>
-          {
-            props.글제목.map(function(a){
-              return(
-                <div  className = "modal" style={{background : props.color}} key={a}>
-                  <h4> {a} </h4>
-                  <p> 날짜 </p>
-                  <p> 상세 내용 </p>
-                  <button onClick={ ()=> {
-                    let update_copy = [...props.글제목]
-                    update_copy[0] = '여자코트 추천'
-                    props.글제목변경(update_copy)
-                  }}> 글수정 </button>
-                </div>
-              )
-            })
-          }
+        <div className="modal">
+          <h4> { props.글제목[props.title] } </h4>
+          <p> 날짜 </p>
+          <p> 상세 내용 </p>
+          <button onClick={ ()=> {
+                let update_copy = [...props.글제목]
+                update_copy[0] = '여자코트 추천'
+                props.글제목변경(update_copy)
+              }}> 글수정 </button>
+          {/*
+          제일 쉬운 방법) <button onClick = {()=>{ props.글제목변경(['여자코트 추천', '강남 우동맛집', '파이썬 독학']) }}> 글 수정 </button>
+          */}
         </div>
       )
     }
-
 export default App;

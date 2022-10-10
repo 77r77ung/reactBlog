@@ -31,6 +31,8 @@ function App() {
 
   let [modal, setModal] = useState(false);
 
+  let [입력값, 입력값변경] = useState('')
+
   return (
     <div className="App"> {/* html이 아니라 JSX(.js 파일에서 쓰는 html 대용품) 문법임 */}
       {/* 상단 메뉴 만들기(주석은 이렇게 다는 겁니당!) */}
@@ -106,12 +108,14 @@ function App() {
         글제목.map(function(a, i){
           return (
             <div className="list" key = {i} >
-              <h4 onClick = { ()=> {setModal(!modal); setTitle(i)} } > {글제목[i]} </h4>
-              <span onClick = {()=> { 
-                let copy = [...따봉];
-                copy[i] = 따봉[i]+1;
-                따봉변경(copy);
-               }}> 👍 </span> { 따봉[i] }
+              <h4 onClick = { ()=> {setModal(!modal); setTitle(i)} } > {글제목[i]}
+                <span onClick = {(e)=> { 
+                  e.stopPropagation();
+                  let copy = [...따봉];
+                  copy[i] = 따봉[i]+1;
+                  따봉변경(copy);
+                }}> 👍 </span> { 따봉[i] }
+              </h4>
               <p> 2월 17일 발행 </p>
             </div>
           )
@@ -126,9 +130,22 @@ function App() {
         //   )
         // }) 
       }
+      {/* 
+      React에서는 태그 하나를 열어서 사용했으면 꼭 닫아주어야 함 
+      숙제 7. input 태그에 문자 입력 후 버튼을 누르면 글 하나가 추가되는 기능 만들기
+        힌트 1) html 직접 하나 만들 필요는 없음(왜냐하면 반복문으로 처리되기 때문)
+               따라서 state만 변경하면 됨
+        힌트 2) array에 자료를 추가하는 방법 모르면 구글링
+      숙제 8. 글마다 삭제 버튼과 그 기능 만들기
+        힌트 1) html을 직접 지울 필요 없이 state만 조작하면 됨
+      */}
+      <input onChange= {(e) => { 입력값변경(e.target.value); 
+        console.log(입력값) }} />
+
       {
         modal == true ? <Modal 글제목 = {글제목} 글제목변경 = {글제목변경} title={title} /> : null
       }
+      
 
     </div>
   );
